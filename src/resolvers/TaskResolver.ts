@@ -23,7 +23,9 @@ export default class {
   }
 
   @Mutation(returns => Task)
-  async createTask(@Arg("taskInput") taskInput: TaskCreateInput): Promise<Task> {
+  async createTask(
+    @Arg("taskInput") taskInput: TaskCreateInput
+  ): Promise<Task> {
     let project = undefined;
     if (taskInput.projectName !== undefined) {
       project = await ProjectModel.findOne({ name: taskInput.projectName });
@@ -32,12 +34,19 @@ export default class {
       }
     }
     let projectId = project ? project._id : undefined;
-    const task = new TaskModel({ title: taskInput.title, completed: taskInput.completed, project: projectId })
+    const task = new TaskModel({
+      title: taskInput.title,
+      completed: taskInput.completed,
+      project: projectId
+    });
     return await task.save();
   }
 
   @Mutation(returns => Task)
-  async updateTask(@Arg("title") title: String, @Arg("taskInput") taskInput: TaskUpdateInput): Promise<Task> {
+  async updateTask(
+    @Arg("title") title: String,
+    @Arg("taskInput") taskInput: TaskUpdateInput
+  ): Promise<Task> {
     const toUpdateTask = (await TaskModel.findOne({ title }))!;
     let project = undefined;
     if (taskInput.projectName !== undefined) {
@@ -47,24 +56,18 @@ export default class {
       }
       toUpdateTask.project = project._id;
     }
-    if (taskInput.completed !== undefined) {
-      toUpdateTask.completed = taskInput.completed;
-    }
-    if (taskInput.title !== undefined) {
-      toUpdateTask.title = taskInput.title;
-    }
+    toUpdateTask.completed =
+      taskInput.completed !== undefined
+        ? taskInput.completed
+        : toUpdateTask.completed;
+    toUpdateTask.title =
+      taskInput.title !== undefined ? taskInput.title : toUpdateTask.title;
     return await toUpdateTask.save();
   }
 
   @Mutation(returns => Boolean)
-  async deleteTask(
-    @Arg("title") title: String
-  ) {
-    const result = await TaskModel.deleteOne({ title });
-    if (result.ok === 1) {
-      return true
-    }
-    return false
+  async deleteTask(@Arg("title") title: String) {
+    return (await TaskModel.deleteOne({ title })) === 1;
   }
 
   @FieldResolver()

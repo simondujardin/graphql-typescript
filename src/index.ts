@@ -7,7 +7,9 @@ import * as mongoose from "mongoose";
 import { ObjectId } from "mongodb";
 import { ObjectIdScalar } from "./object-id.scalar";
 
-mongoose.connect("mongodb://localhost:27017/taskManager", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost:27017/taskManager", {
+  useNewUrlParser: true
+});
 
 async function bootstrap() {
   const schema = await buildSchema({

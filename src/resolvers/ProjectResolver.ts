@@ -12,7 +12,6 @@ import { ProjectCreateInput, ProjectUpdateInput } from "./types/ProjectInput";
 
 @Resolver(of => Project)
 export default class {
-
   @Query(returns => Project, { nullable: true })
   async project(@Arg("name") name: string): Promise<Project> {
     return (await ProjectModel.findOne({ name: name }))!;
@@ -31,24 +30,22 @@ export default class {
   }
 
   @Mutation(returns => Project)
-  async updateProject(@Arg("name") name: String, @Arg("projectInput") projectInput: ProjectUpdateInput): Promise<Project> {
+  async updateProject(
+    @Arg("name") name: String,
+    @Arg("projectInput") projectInput: ProjectUpdateInput
+  ): Promise<Project> {
     const toUpdateProject = (await ProjectModel.findOne({ name }))!;
     let project = undefined;
-    if (projectInput.name !== undefined) {
-      toUpdateProject.name = projectInput.name;
-    }
+    toUpdateProject.name =
+      projectInput.name !== undefined
+        ? projectInput.name
+        : toUpdateProject.name;
     return await toUpdateProject.save();
   }
 
   @Mutation(returns => Boolean)
-  async deleteProject(
-    @Arg("name") name: String
-  ) {
-    const result = await ProjectModel.deleteOne({ name })
-    if (result.ok === 1) {
-      return true
-    }
-    return false;
+  async deleteProject(@Arg("name") name: String) {
+    return (await ProjectModel.deleteOne({ name })) === 1;
   }
 
   @FieldResolver()
