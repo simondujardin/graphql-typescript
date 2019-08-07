@@ -1,0 +1,17 @@
+{
+  // Consultez https://go.microsoft.com/fwlink/?LinkId=733558 
+  // pour voir la documentation sur le format de tasks.json
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run app in development",
+      "type": "shell",
+      "command": "yarn build:live",
+    },
+    {
+      "label": "Run tests",
+      "type": "shell",
+      "command": "yarn jest",
+    }
+  ]
+}
