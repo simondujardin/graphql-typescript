@@ -1,5 +1,4 @@
 import "reflect-metadata";
-import { GraphQLSchema } from "graphql";
 import { connect, disconnect } from './utils/mongooseConnect'
 import { suite as ProjectsTest } from './tests/projects';
 import { suite as TasksTest } from './tests/tasks';
