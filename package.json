@@ -1,0 +1,32 @@
+{
+  "name": "graphql-typescript",
+  "version": "0.1.0",
+  "description": "A GraphQL with typescript API test",
+  "main": "index.js",
+  "author": "Simon DUJARDIN",
+  "license": "MIT",
+  "scripts": {
+    "start": "npm run build:live",
+    "build": "tsc -p .",
+    "build:live": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts"
+  },
+  "dependencies": {
+    "graphql-yoga": "^1.18.1",
+    "mongoose": "^5.6.8",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^0.17.4",
+    "typegoose": "^5.9.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.16",
+    "@types/mongoose": "^5.5.11",
+    "@types/node": "^12.6.9",
+    "@types/ws": "^6.0.1",
+    "jest": "^24.8.0",
+    "mongodb-memory-server-global": "^5.1.10",
+    "nodemon": "^1.19.1",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
+  }
+}
