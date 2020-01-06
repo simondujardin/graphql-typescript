@@ -11,8 +11,11 @@
     "build:live": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts"
   },
   "dependencies": {
+    "graphql-middleware": "^3.0.3",
+    "graphql-middleware-prometheus": "^0.1.0",
     "graphql-yoga": "^1.18.1",
     "mongoose": "^5.6.8",
+    "prom-client": "^11.5.3",
     "reflect-metadata": "^0.1.13",
     "type-graphql": "^0.17.4",
     "typegoose": "^5.9.0"
